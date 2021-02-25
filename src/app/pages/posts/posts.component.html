@@ -22,7 +22,7 @@
                         <!-- Cuerpo de la publicación -->
                         <div class="media-body">
                             <h3 class="title mb-1"><a href="/posts/{{post.id}}/view">{{post.title}}</a></h3>
-                            <div class="meta mb-1"><span class="time">{{post.created_at | date}}</span><span class="comment"><a href="#">8 comments</a></span></div>
+                            <div class="meta mb-1"><span class="time">{{post.created_at | date}}</span></div>
                             <div class="intro">{{post.body}}</div>
                             <!-- Link para acceder al detalle de la publicación -->
                             <a class="more-link" routerLink="/posts/{{post.id}}/view">Leer más</a>
