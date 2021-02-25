@@ -1,0 +1,35 @@
+<app-navbar></app-navbar>
+<div class="main-wrapper">
+    <!-- Contenedor superior de busqueda -->
+    <section class="cta-section theme-bg-light py-5">
+        <div class="container text-center">
+	        <h2 class="heading">Busqueda de publicaciones</h2>
+		    <div class="intro"></div>
+		    <form class="signup-form form-inline justify-content-center pt-3">
+                <div class="form-group">
+                    <input type="search" id="search" name="search" class="form-control mr-md-1 semail" [(ngModel)]="search" placeholder="Ingrese palabras claves">
+                </div>
+            </form>
+		</div>
+	</section>
+    <section class="blog-list px-3 py-5 p-md-5">
+        <div class="container">
+            <!-- Contenedor de publicaciones -->
+            <div class="row" *ngFor="let post of posts | gridFilter:search | orderDate">
+                <div class="item mb-5">
+                    <div class="media">
+                        <img class="mr-3 img-fluid post-thumb d-none d-md-flex" src="https://cdn.pixabay.com/photo/2017/02/08/14/25/computer-2048983_960_720.jpg" alt="image">
+                        <!-- Cuerpo de la publicación -->
+                        <div class="media-body">
+                            <h3 class="title mb-1"><a href="/posts/{{post.id}}/view">{{post.title}}</a></h3>
+                            <div class="meta mb-1"><span class="time">{{post.created_at | date}}</span><span class="comment"><a href="#">8 comments</a></span></div>
+                            <div class="intro">{{post.body}}</div>
+                            <!-- Link para acceder al detalle de la publicación -->
+                            <a class="more-link" routerLink="/posts/{{post.id}}/view">Leer más</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

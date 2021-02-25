@@ -1,0 +1,53 @@
+<app-navbar></app-navbar>
+<div class="main-wrapper">
+    <article class="blog-post px-3 py-5 p-md-5">
+        <div class="container">
+            <!-- Titulo de la publicación -->
+            <header class="blog-post-header">
+                <h2 class="title mb-2">{{post.title}}</h2>
+                <div class="meta mb-3"><span class="date">{{ post.created_at | date }}</span><span class="comment">{{post.cantidad_comentarios}} comentarios</span></div>
+            </header>
+            <div class="blog-post-body">
+                <figure class="blog-banner">
+                    <a><img class="img-fluid" src="https://cdn.pixabay.com/photo/2017/02/08/14/25/computer-2048983_960_720.jpg" alt="image"></a>
+                </figure>
+                <p>{{post.body}}</p>    
+                <h4 class="title mb-2">Comentarios</h4>
+                <br>
+                <section class="comments">
+                    <!-- Listado de comentarios que tiene la publicación -->
+                    <article class="commentc" *ngFor="let comment of comments | orderDate">
+                        <a class="comment-img">
+                            <img src="../../../assets/img/user_comment.png" alt="" width="50" height="50">
+                        </a>
+                        <div class="comment-body">
+                            <div class="text">
+                                <p>{{comment.body}}</p>
+                            </div>
+                            <p class="attribution">por <strong>{{comment.name}}</strong> {{comment.created_at | date}}</p>
+                        </div>
+                    </article>    
+                </section>
+                <br>
+                <!-- Formulario para registro de la comentario -->
+                <form #FormComentario="ngForm" (submit)="saveComment()"> 
+                    <div class="form-group">
+                        <label for="contenido"></label>
+                        <textarea class="form-control" id="contenido" name="contenido" #fieldComentario="ngModel" [(ngModel)]="comment.body"  required>
+                        </textarea>    
+                        <p class="block-tag text-right" *ngIf="fieldComentario.invalid && (fieldComentario.dirty || fieldComentario.touched)">
+                            <small class="badge badge-default badge-danger">
+                                Campo requerido
+                            </small>
+                        </p>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h2 class="heading"></h2>
+                        <!-- Botón para el registro del comentario -->
+                        <button  [disabled]="!FormComentario.valid" type="submit" class="btn btn-primary" >Comentar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </article>
+</div>

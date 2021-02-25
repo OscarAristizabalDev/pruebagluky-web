@@ -1,0 +1,32 @@
+<header class="header text-center">	    
+    <h1 class="blog-name pt-lg-4 mb-0">{{ nameUsuario }}</h1>
+    
+    <nav class="navbar navbar-expand-lg navbar-dark" >
+       
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div id="navigation" class="collapse navbar-collapse flex-column" >
+            <div class="profile-section pt-3 pt-lg-0">
+                <!-- Imagén del usuario autenticado por google o por facebook -->
+                <img src="{{ photoUrlUsuario }}">	
+                <hr> 
+            </div>
+            <ul class="navbar-nav flex-column text-left">
+                <!-- Link para acceder a todas las publicaciones -->
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/posts"><i class="fas fa-home fa-fw mr-2"></i>Publicaciones <span class="sr-only">(current)</span></a>
+                </li>
+                <!-- Link para acceder a las publicaciones del usuario autenticado  -->
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/posts/{{idUser}}/personal"><i class="fas fa-bookmark fa-fw mr-2"></i>Mis publicaciones</a>
+                </li>
+            </ul>
+            <div class="my-2 my-md-3">
+                <hr> 
+                <!-- Botón para cerrar la sesión -->
+                <a class="btn btn-primary" target="_blank" (click)="signOut()">Cerrar sesión</a>
+            </div>
+        </div>
+    </nav>
+</header>

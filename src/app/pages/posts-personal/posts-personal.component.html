@@ -1,0 +1,86 @@
+<app-navbar></app-navbar>
+<div class="main-wrapper">
+    <section class="cta-section theme-bg-light py-5">
+        <!-- Contenedor de encabezado -->
+        <div class="container text-center">
+            <div class="row">
+                <div class="col-md-12 col-md-offset-2">
+                    <div>
+                        <div class=" d-flex justify-content-between align-items-center">
+                            <h2 class="heading">Publicaciones personales</h2>
+                            <button href="#" class="btn btn-primary btn-sm" (click)="open(content)">Publicar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+	        
+		    <div class="intro"></div>
+		    <form class="signup-form form-inline justify-content-center pt-3">
+                <!-- Barra de busqueda para publicaciones personales -->
+                <div class="form-group">
+                    <input type="search" id="search" name="search" class="form-control mr-md-1 semail" [(ngModel)]="search" placeholder="Ingrese palabras claves para su busqueda">
+                </div>    
+            </form>
+		</div>
+        <section class="blog-list px-3 py-5 p-md-5">
+            <div class="container">
+                <div *ngIf="posts.length == 0">
+                    No hay publicaciones registradas
+                </div>
+                <!-- Contenedor de publicaciones peronsales -->
+                <div class="row" *ngFor="let post of posts | gridFilter:search | orderDate">
+                    <div class="item mb-5">
+                        <div class="media">
+                            <img class="mr-3 img-fluid post-thumb d-none d-md-flex" src="https://cdn.pixabay.com/photo/2017/02/08/14/25/computer-2048983_960_720.jpg" alt="image">
+                            <div class="media-body">
+                                <h3 class="title mb-1"><a routerLink="/posts/{{post.id}}/view">{{post.title}}</a></h3>
+                                <div class="meta mb-1"><span>{{post.created_at | date}}</span><span class="comment"><a href="#">8 comments</a></span></div>
+                                <div class="intro">{{post.body}}</div>
+                                <a class="more-link" routerLink="/posts/{{post.id}}/view">Leer más</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+	</section>
+</div>
+
+<ng-template #content let-c="close" let-d="dismiss">
+    <!-- Modal para el registro de publicaciones personales -->
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Nueva publicación</h4>
+        <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <!-- Formulario para registro de publicaciones personales -->
+    <form #FormPublicacion="ngForm" (ngSubmit)="save()"> 
+        <div class="modal-body">
+            <div class="form-group">
+                <label for="titulo">Título</label>
+                <input type="text" class="form-control" id="titulo" name="titulo" #fieldTituloPublicacion="ngModel" [(ngModel)]="form.title" required>
+                <p class="block-tag text-right" *ngIf="fieldTituloPublicacion.invalid && (fieldTituloPublicacion.dirty || fieldTituloPublicacion.touched)">
+                    <small class="badge badge-default badge-danger" *ngIf="fieldTituloPublicacion.errors.required">
+                        Campo requerido
+                    </small>
+                </p>
+                <label for="contenido">Contenido</label>
+                <textarea class="form-control" id="contenido" name="contenido" #fieldContenidoPublicacion="ngModel" [(ngModel)]="form.body" required>
+                </textarea>    
+                <p class="block-tag text-right" *ngIf="fieldContenidoPublicacion.invalid && (fieldContenidoPublicacion.dirty || fieldContenidoPublicacion.touched)">
+                    <small class="badge badge-default badge-danger" *ngIf="fieldContenidoPublicacion.errors.required">
+                        Campo requerido
+                    </small>
+                </p>
+            </div>
+        </div>
+        <!-- Botón de registro de publicación -->
+        <div class="modal-footer">
+            <button [disabled]="!FormPublicacion.valid" type="submit" class="btn btn-outline-dark">Save</button>
+        </div>
+    </form>
+</ng-template>
+
+
+  
