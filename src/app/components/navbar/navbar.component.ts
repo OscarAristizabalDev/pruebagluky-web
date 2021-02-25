@@ -31,11 +31,16 @@ export class NavbarComponent implements OnInit {
    */
   signOut(): void {
     // Se llama el evento de cierre de cesíón de google o facebook
-    this.authService.signOut();
-    // Se eliminan las variables name y photoUrl del localstorage
-    localStorage.removeItem('name');
-    localStorage.removeItem('photoUrl');
-    // Se redirecciona al inicio de sesión
-    this.router.navigate(['/']);
+    this.authService.signOut()
+        .then(success => {
+            // Se redirecciona al inicio de sesión
+            this.router.navigate(['/'])
+            // Se eliminan las variables name y photoUrl del localstorage
+            localStorage.removeItem('name')
+            localStorage.removeItem('photoUrl')
+        }).catch(error => console.log(error));
+    
+    
+    
   }
 }
